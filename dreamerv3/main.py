@@ -218,6 +218,7 @@ def make_env(config, index, **overrides):
       'memmaze': lambda task, **kw: from_gym.FromGym(
           f'MemoryMaze-{task}-ExtraObs-v0', **kw),
       'android': 'embodied.envs.android:Android',
+      'androidsimple': 'embodied.envs.android_simple:AndroidSimple',
   }[suite]
   if isinstance(ctor, str):
     module, cls = ctor.split(':')
