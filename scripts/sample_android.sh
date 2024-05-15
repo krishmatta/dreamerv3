@@ -6,7 +6,7 @@ seed=$2
 shift
 shift
 
-python -i dreamerv3/main.py \
+python dreamerv3/main.py \
        --run.script sample \
        --logdir ~/logdir/android/$name \
        --task $task \
@@ -14,4 +14,5 @@ python -i dreamerv3/main.py \
        --batch_size 16 \
        --batch_length 256 \
        --run.train_ratio 32 \
+       --run.steps 10 \
        "$@"
