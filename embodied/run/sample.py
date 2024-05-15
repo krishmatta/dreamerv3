@@ -121,7 +121,7 @@ def sample(make_agent, make_replay, make_env, make_logger, args):
       logger.add({'fps/train': train_fps.result()})
       logger.write()
 
-    if should_save(step):
-      checkpoint.save()
+#    if should_save(step):
+#      checkpoint.save()
 
   logger.close()
