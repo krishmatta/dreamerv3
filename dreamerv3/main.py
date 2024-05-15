@@ -129,6 +129,13 @@ def main(argv=None):
         bind(make_replay, config, 'replay', rate_limit=True),
         bind(make_replay, config, 'replay_eval', is_eval=True), args)
 
+  elif args.script == 'sample':
+    embodied.run.sample(
+        bind(make_agent, config),
+        bind(make_replay, config, 'replay'),
+        bind(make_env, config),
+        bind(make_logger, config), args)
+
   else:
     raise NotImplementedError(args.script)
 
@@ -210,6 +217,7 @@ def make_env(config, index, **overrides):
       'bsuite': 'embodied.envs.bsuite:BSuite',
       'memmaze': lambda task, **kw: from_gym.FromGym(
           f'MemoryMaze-{task}-ExtraObs-v0', **kw),
+      'android': 'embodied.envs.android:Android',
   }[suite]
   if isinstance(ctor, str):
     module, cls = ctor.split(':')
@@ -227,6 +235,11 @@ def make_env(config, index, **overrides):
 
 def wrap_env(env, config):
   args = config.wrapper
+
+  if hasattr(env, "wrappers"):
+    for w in env.wrappers:
+      env = w(env)
+
   for name, space in env.act_space.items():
     if name == 'reset':
       continue
