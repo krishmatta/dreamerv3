@@ -14,5 +14,7 @@ python dreamerv3/main.py \
        --batch_size 16 \
        --batch_length 256 \
        --run.train_ratio 32 \
-       --run.steps 10 \
+       --run.steps 100 \
+       --run.driver_parallel False \
+       --run.num_envs 1 \
        "$@"
