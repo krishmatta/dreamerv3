@@ -106,9 +106,8 @@ def train_offline(agent, replay, logger, args):
   #     *args, mode='explore' if should_expl(step) else 'train')
   while step < args.steps:
     # driver(policy, steps=100)
-    for _ in range(100):
-        step.increment()
-        train_step(None, None)
+    step.increment()
+    train_step(None, None)
     if should_save(step):
       checkpoint.save()
   logger.write()
