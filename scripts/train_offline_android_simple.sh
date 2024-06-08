@@ -15,4 +15,5 @@ python dreamerv3/train.py \
        --batch_length 12 \
        --run.steps 100 \
        --run.train_ratio 32 \
+       --run.log_every 1 \
        "$@"
