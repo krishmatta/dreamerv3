@@ -98,6 +98,13 @@ def main(argv=None):
           agent, replay, logger, bind(make_env, config),
           num_envs=config.envs.amount, args=args)
 
+    elif args.script == 'sample':
+      replay = make_replay(config, logdir / 'replay')
+      env = make_envs(config)
+      cleanup.append(env)
+      agent = agt.Agent(env.obs_space, env.act_space, step, config)
+      embodied.run.train_save(agent, env, replay, logger, args)
+
     else:
       raise NotImplementedError(args.script)
   finally:
@@ -169,6 +176,7 @@ def make_env(config, **overrides):
       'minecraft': 'embodied.envs.minecraft:Minecraft',
       'loconav': 'embodied.envs.loconav:LocoNav',
       'pinpad': 'embodied.envs.pinpad:PinPad',
+      'androidsimple': 'embodied.envs.android_simple:AndroidSimple',
   }[suite]
   if isinstance(ctor, str):
     module, cls = ctor.split(':')
@@ -182,6 +190,9 @@ def make_env(config, **overrides):
 
 def wrap_env(env, config):
   args = config.wrapper
+  if hasattr(env, "wrappers"):
+    for w in env.wrappers:
+      env = w(env)
   for name, space in env.act_space.items():
     if name == 'reset':
       continue
