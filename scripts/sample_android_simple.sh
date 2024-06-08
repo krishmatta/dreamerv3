@@ -14,5 +14,6 @@ python dreamerv3/train.py \
        --jax.platform cpu \
        --batch_size 8 \
        --batch_length 12 \
+       --run.steps 100 \
        --run.train_ratio 32 \
        "$@"
