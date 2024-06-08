@@ -4,7 +4,7 @@ import embodied
 import numpy as np
 
 
-def train(agent, replay, logger, args):
+def train_offline(agent, replay, logger, args):
 
   logdir = embodied.Path(args.logdir)
   logdir.mkdirs()

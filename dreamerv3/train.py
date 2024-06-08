@@ -103,7 +103,7 @@ def main(argv=None):
       env = make_envs(config)
       cleanup.append(env)
       agent = agt.Agent(env.obs_space, env.act_space, step, config)
-      embodied.run.train_save(agent, env, replay, logger, args)
+      embodied.run.sample(agent, env, replay, logger, args)
 
     elif args.script == 'train_offline':
       replay = make_replay(config, logdir / 'replay')
@@ -112,7 +112,7 @@ def main(argv=None):
         from embodied.envs.android_simple import get_dummy_spaces
       obs_space, act_space = get_dummy_spaces()
       agent = agt.Agent(obs_space, act_space, step, config)
-      embodied.run.train_save(agent, replay, logger, args)
+      embodied.run.train_offline(agent, replay, logger, args)
 
     else:
       raise NotImplementedError(args.script)

@@ -6,7 +6,7 @@ import embodied
 import numpy as np
 
 
-def train_save(agent, env, replay, logger, args):
+def sample(agent, env, replay, logger, args):
 
   logdir = embodied.Path(args.logdir)
   logdir.mkdirs()
