@@ -3,6 +3,22 @@ import numpy as np
 from pathlib import Path
 from gym import spaces
 
+def get_dummy_spaces(action_size=(23, 11), img_size=(64, 64)):
+    obs = {
+        "image": embodied.Space(dtype=np.uint8, shape=(img_size[0], img_size[1], 3), low=0, high=255),
+        "reward": embodied.Space(dtype=np.float32, shape=(), low=-np.inf, high=np.inf),
+        "is_first": embodied.Space(dtype=bool, shape=(), low=False, high=True),
+        "is_last": embodied.Space(dtype=bool, shape=(), low=False, high=True),
+        "is_terminal": embodied.Space(dtype=bool, shape=(), low=False, high=True),
+    }
+
+    act = {
+        "action": embodied.Space(dtype=np.int32, shape=(), low=0, high=action_size[0] * action_size[1] - 1),
+        "reset": embodied.Space(dtype=bool, shape=(), low=False, high=True),
+    }
+
+    return obs, act
+
 class AndroidSimple(embodied.Env):
     def __init__(self,
                  task, # We'll case on this for setup
