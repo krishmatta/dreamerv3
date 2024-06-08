@@ -112,3 +112,4 @@ def train_offline(agent, replay, logger, args):
     if should_save(step):
       checkpoint.save()
   logger.write()
+  checkpoint.save()
