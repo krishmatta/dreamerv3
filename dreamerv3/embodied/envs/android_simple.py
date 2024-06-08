@@ -13,7 +13,7 @@ def get_dummy_spaces(action_size=(23, 11), img_size=(64, 64)):
     }
 
     act = {
-        "action": embodied.Space(dtype=np.int32, shape=(), low=0, high=action_size[0] * action_size[1] - 1),
+        "action": embodied.Space(dtype=np.float32, shape=(action_size[0] * action_size[1] - 1,), low=0, high=1),
         "reset": embodied.Space(dtype=bool, shape=(), low=False, high=True),
     }
 
